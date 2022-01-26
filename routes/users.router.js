@@ -1,12 +1,8 @@
 const express = require('express');
 
-const UserService = require('./../services/user.services');
+const UserService = require('./../services/user.service');
 const validatorHandler = require('./../middlewares/validator.handler');
-const {
-  updateUserSchema,
-  createUserSchema,
-  getUserSchema,
-} = require('./../schemas/user.schema');
+const { updateUserSchema, createUserSchema, getUserSchema } = require('./../schemas/user.schema');
 
 const router = express.Router();
 const service = new UserService();
@@ -20,8 +16,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get(
-  '/:id',
+router.get('/:id',
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -34,8 +29,7 @@ router.get(
   }
 );
 
-router.post(
-  '/',
+router.post('/',
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -48,8 +42,7 @@ router.post(
   }
 );
 
-router.patch(
-  '/:id',
+router.patch('/:id',
   validatorHandler(getUserSchema, 'params'),
   validatorHandler(updateUserSchema, 'body'),
   async (req, res, next) => {
@@ -64,14 +57,13 @@ router.patch(
   }
 );
 
-router.delete(
-  '/:id',
+router.delete('/:id',
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       await service.delete(id);
-      res.status(201).json({ id });
+      res.status(201).json({id});
     } catch (error) {
       next(error);
     }
@@ -79,3 +71,4 @@ router.delete(
 );
 
 module.exports = router;
+

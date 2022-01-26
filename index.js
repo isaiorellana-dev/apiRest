@@ -1,39 +1,41 @@
 const express = require('express');
-const routerApi = require('./routes');
 const cors = require('cors');
-const app = express();
-const {
-  logError,
-  errorHandler,
-  boomErrorHandler,
-} = require('./middlewares/error.handler');
+const routerApi = require('./routes');
 
-const port = 3000;
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
 app.use(express.json());
 
-const whiteList = ['http://localhost:5500', 'http://localhost:3000'];
+const whitelist = ['http://localhost:8080', 'https://myapp.co'];
 const options = {
   origin: (origin, callback) => {
-    if (whiteList.includes(origin) || !origin) {
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('no permitido'));
     }
-  },
-};
-
+  }
+}
 app.use(cors(options));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hola mi server en express');
+});
+
+app.get('/nueva-ruta', (req, res) => {
+  res.send('Hola, soy una nueva ruta');
 });
 
 routerApi(app);
 
-app.use(logError);
+app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log('Mi port' +  port);
 });
