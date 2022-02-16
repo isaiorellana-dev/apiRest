@@ -23,6 +23,7 @@ const CustomerSchema = {
   phone: {
     allowNull: false,
     type: DataTypes.STRING,
+    unique: true,
   },
   createdAt: {
     allowNull: false,
@@ -34,6 +35,7 @@ const CustomerSchema = {
     field: 'user_id',
     type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
     references: {
       model: USER_TABLE,
       key: 'id',

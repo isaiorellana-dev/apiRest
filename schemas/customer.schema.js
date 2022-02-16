@@ -8,18 +8,18 @@ const userId = Joi.number().integer();
 // const email = Joi.string().email();
 // const password = Joi.string().min(6).max(30);
 
-const getCostumerSchema = Joi.object({
+const getCustomerSchema = Joi.object({
   id: id.required(),
 });
 
-const createCostumerSchema = Joi.object({
+const createCustomerSchema = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   phone: phone.required(),
   userId: userId.required(),
 });
 
-const updateCostumerSchema = Joi.object({
+const updateCustomerSchema = Joi.object({
   name,
   lastName,
   phone,
@@ -27,7 +27,7 @@ const updateCostumerSchema = Joi.object({
 });
 
 module.exports = {
-  getCostumerSchema,
-  createCostumerSchema,
-  updateCostumerSchema,
+  getCustomerSchema,
+  createCustomerSchema,
+  updateCustomerSchema,
 };
