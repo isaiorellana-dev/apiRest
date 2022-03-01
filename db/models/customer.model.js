@@ -11,6 +11,10 @@ const CustomerSchema = {
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
+  age: {
+    allowNull: true,
+    type: DataTypes.INTEGER,
+  },
   name: {
     allowNull: false,
     type: DataTypes.STRING,
@@ -23,7 +27,6 @@ const CustomerSchema = {
   phone: {
     allowNull: false,
     type: DataTypes.STRING,
-    unique: true,
   },
   createdAt: {
     allowNull: false,
@@ -44,10 +47,11 @@ const CustomerSchema = {
     onDelete: 'SET NULL',
   },
 };
-
+// bug por aqui
 class Customer extends Model {
   static associate(models) {
     this.belongsTo(models.User, { as: 'user' });
+    this.hasMany(models.Order, { as: 'orders', foreignKey: 'customerId' });
   }
   static config(sequelize) {
     return {
