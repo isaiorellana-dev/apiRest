@@ -3,7 +3,7 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 const ORDER_TABLE = require('./order.model');
 const PRODUCT_TABLE = require('./product.model');
 
-const ORDER_PRODUCT_TABLE = 'orders_products';
+const ORDER_PRODUCT_TABLE = 'order_products';
 
 const OrderProductSchema = {
   id: {
